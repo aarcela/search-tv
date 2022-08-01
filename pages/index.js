@@ -16,8 +16,8 @@ const columns = [
   { field: "segmento", headerName: "Segmento", width: 150 },
 ];
 
-export async function getServerSideProps() {
-  const filePath = path.join(process.cwd(), "../public/parque.json");
+export async function getStaticProps() {
+  const filePath = path.join(process.cwd(), "json/parque.json");
   const jsonData = await fsPromises.readFile(filePath);
   const posts = JSON.parse(jsonData);
   // console.log(data);
@@ -25,10 +25,6 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ posts }) {
-  // const { data, error } = useSWR("/api/hello", fetcher);
-  // console.log(data.toJson());
-
-  // const rows = data;
   return (
     <div className={styles.container}>
       <Head>
