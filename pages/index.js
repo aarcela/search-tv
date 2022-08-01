@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { DataGrid,GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import fsPromises from "fs/promises";
 import path from "path";
 
@@ -17,7 +17,7 @@ const columns = [
 ];
 
 export async function getServerSideProps() {
-  const filePath = path.join(process.cwd(), "/json/parque.json");
+  const filePath = path.join(process.cwd(), "../public/parque.json");
   const jsonData = await fsPromises.readFile(filePath);
   const posts = JSON.parse(jsonData);
   // console.log(data);
@@ -41,22 +41,14 @@ export default function Home({ posts }) {
         <h1 className={styles.title}>Consulta TV</h1>
 
         <div style={{ height: 300, width: "100%" }}>
-          <DataGrid rows={posts} columns={columns} getRowId={(row)=>row.ID } components={{ Toolbar: GridToolbar }}/>
+          <DataGrid
+            rows={posts}
+            columns={columns}
+            getRowId={(row) => row.ID}
+            components={{ Toolbar: GridToolbar }}
+          />
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 }
